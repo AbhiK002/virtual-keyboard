@@ -31,6 +31,7 @@ Read more about the [keyboard](https://pypi.org/project/keyboard/) module
 - It might lose focus of the window you were typing in sometimes, so just pin the keyboard and click once wherever you want to enter the text; it will work 98% of the time.
 
 ## Screenshots
+(to be added)
 ![1]()
 ![2]()
 ![3]()
