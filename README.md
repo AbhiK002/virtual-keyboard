@@ -16,7 +16,7 @@ This is my first ever proper GUI based application project after learning tkinte
 - You can pin the keyboard so that it always stays on top of other windows. Opacity setting makes it really nice to use while pinned to the top.
 - For the CTRL, SHIFT, ALT and WIN (special) keys, you can right click any of these to hold down them for as long as you want until you right click them again (like how we sometimes just hold the shift key to type instead of pressing CAPSLOCK)
 - Adding to the last point, left clicking any of the 4 special keys will temporarily press them till you click any other key (excluding other special keys) (kind of like how we use CTRL+C or CTRL+ALT+DELETE)
-- Has a cute logo
+- Has a [cute logo](https://github.com/AbhiK002/virtual-keyboard/blob/43b1af6691aec87d4a50ab47f79fb9d369935c3a/vkblogo.png)
 
 ## Requirements
 Only needs the keyboard module to work properly.
