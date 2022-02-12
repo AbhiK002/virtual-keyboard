@@ -3,7 +3,7 @@ A GUI application made in python using tkinter
 
 This is my first ever proper GUI based application project after learning tkinter recently. I made it to practice and get more used to working with tkinter
 
-### Features
+## Features
 - You can open the keyboard settings menu with the button in the bottom right corner
 - The keyboard comes in 5 sizes:
 	- Very Small
@@ -17,11 +17,20 @@ This is my first ever proper GUI based application project after learning tkinte
 - Adding to the last point, left clicking any of the 4 special keys will temporarily press them till you click any other key (excluding other special keys) (kind of like how we use CTRL+C or CTRL+ALT+DELETE)
 - Has a cute logo
 
-### Note
+## Requirements
+Only needs the keyboard module to work properly.
+How to install the `keyboard` module through `cmd`:
+
+```
+pip install keyboard
+```
+Read more about the [keyboard](https://pypi.org/project/keyboard/) module
+
+## Note
 - The program will flash everytime you press any key (trying my best to fix)
 - It might lose focus of the window you were typing in sometimes, so just pin the keyboard and click once wherever you want to enter the text; it will work 98% of the time.
 
-### Screenshots
+## Screenshots
 ![1]()
 ![2]()
 ![3]()
