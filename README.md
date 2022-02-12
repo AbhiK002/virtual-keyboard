@@ -32,13 +32,13 @@ Read more about the [keyboard](https://pypi.org/project/keyboard/) module
 - It might lose focus of the window you were typing in sometimes, so just pin the keyboard and click once wherever you want to enter the text; it will work 98% of the time.
 
 ## Screenshots
-(to be added)
-![1]()
-![2]()
-![3]()
-![4]()
-![5]()
-![6]()
+
+![s1main](https://user-images.githubusercontent.com/68178267/153722634-f70a6942-4976-4807-9fac-9efb7e188f05.png)
+![s6shift](https://user-images.githubusercontent.com/68178267/153722731-90f4930c-7ff1-43ea-8144-0a10b901410e.png)
+![s2settings](https://user-images.githubusercontent.com/68178267/153722636-43548ac7-1a73-41ff-80ab-bc8d2685408e.png)
+![s3vsmall30](https://user-images.githubusercontent.com/68178267/153722638-7d52a45a-c658-4125-9709-19a36536b212.png)
+![s4vlarge70](https://user-images.githubusercontent.com/68178267/153722640-ebcbe5aa-b820-4638-96e9-86c4ce4a9d47.png)
+![s5fun](https://user-images.githubusercontent.com/68178267/153722641-1d16bcbe-a3f2-451c-a553-d86b92ee57cd.png)
 
 ### Thank You!
 Enjoy the program :)
