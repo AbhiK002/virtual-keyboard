@@ -1,4 +1,4 @@
-# Virtual Keyboard
+# Virtual Keyboard ![1](https://github.com/AbhiK002/virtual-keyboard/blob/9a13ed83e957d9bfc434da07f4ded2bd1003f769/vkblogo.png)
 A GUI application made in python using tkinter
 
 This is my first ever proper GUI based application project after learning tkinter recently. I made it to practice and get more used to working with tkinter
