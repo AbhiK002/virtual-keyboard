@@ -31,8 +31,12 @@ class VirtualKeyboard:
         self.darkyellow = "#bfb967"
         self.yellow = "#ebe481"
 
-        master.configure(bg=self.gray)
-        master.title("Virtual Keyboard")
+        self.master.configure(bg=self.gray)
+        self.master.title("Virtual Keyboard")
+
+        # makes sure shift/ctrl/alt/win keys aren't pressed down after keyboard closed
+        self.master.protocol("WM_DELETE_WINDOW", lambda: [keyboard.release('shift'), keyboard.release('ctrl'), keyboard.release('alt'), keyboard.release('win'), self.master.destroy()])
+
         self.user_scr_width = int(master.winfo_screenwidth())
         self.user_scr_height = int(master.winfo_screenheight())
 
@@ -501,9 +505,6 @@ class VirtualKeyboard:
         keyframe6.grid(row=5, padx=9, sticky="NSEW")
         infoframe7.grid(row=6, padx=9, pady=5, sticky="NSEW")
 
-        # makes sure shift/ctrl/alt/win keys aren't pressed down after keyboard closed
-        self.master.protocol("WM_DELETE_WINDOW", lambda: [keyboard.release('shift'), keyboard.release('ctrl'), keyboard.release('alt'), keyboard.release('win'), self.master.destroy()])
-
     # nothing
     def donothing(self):
         """
@@ -526,6 +527,137 @@ class VirtualKeyboard:
         if self.spl_key_pressed:
             keyboard.press('shift')
 
+    # release shift keys
+    def rel_shifts(self):
+        keyboard.release('shift')
+
+        self.row5buttons[0].config(
+            relief=RAISED,
+            bg=self.gray,
+            activebackground=self.darkgray,
+            activeforeground="#bababa",
+            fg="white"
+        )
+        self.row5buttons[11].config(
+            relief=RAISED,
+            bg=self.gray,
+            activebackground=self.darkgray,
+            activeforeground="#bababa",
+            fg="white"
+        )
+
+    # press shift keys
+    def prs_shifts(self):
+        keyboard.press('shift')
+
+        self.row5buttons[0].config(
+            relief=SUNKEN,
+            activebackground=self.gray,
+            bg=self.darkgray,
+            fg="#bababa",
+            activeforeground="white")
+        self.row5buttons[11].config(
+            relief=SUNKEN,
+            activebackground=self.gray,
+            bg=self.darkgray,
+            fg="#bababa",
+            activeforeground="white")
+
+    # release ctrl keys
+    def rel_ctrls(self):
+        keyboard.release('ctrl')
+
+        self.row6buttons[0].config(
+            relief=RAISED,
+            bg=self.gray,
+            activebackground=self.darkgray,
+            activeforeground="#bababa",
+            fg="white"
+        )
+        self.row6buttons[5].config(
+            relief=RAISED,
+            bg=self.gray,
+            activebackground=self.darkgray,
+            activeforeground="#bababa",
+            fg="white"
+        )
+
+    # press ctrl keys
+    def prs_ctrls(self):
+        keyboard.press('ctrl')
+
+        self.row6buttons[0].config(
+            relief=SUNKEN,
+            activebackground=self.gray,
+            bg=self.darkgray,
+            fg="#bababa",
+            activeforeground="white")
+        self.row6buttons[5].config(
+            relief=SUNKEN,
+            activebackground=self.gray,
+            bg=self.darkgray,
+            fg="#bababa",
+            activeforeground="white")
+
+    # release alt keys
+    def rel_alts(self):
+        keyboard.release('alt')
+
+        self.row6buttons[2].config(
+            relief=RAISED,
+            bg=self.gray,
+            activebackground=self.darkgray,
+            activeforeground="#bababa",
+            fg="white"
+        )
+        self.row6buttons[4].config(
+            relief=RAISED,
+            bg=self.gray,
+            activebackground=self.darkgray,
+            activeforeground="#bababa",
+            fg="white"
+        )
+
+    # press alt keys
+    def prs_alts(self):
+        keyboard.press('alt')
+
+        self.row6buttons[2].config(
+            relief=SUNKEN,
+            activebackground=self.gray,
+            bg=self.darkgray,
+            fg="#bababa",
+            activeforeground="white")
+        self.row6buttons[4].config(
+            relief=SUNKEN,
+            activebackground=self.gray,
+            bg=self.darkgray,
+            fg="#bababa",
+            activeforeground="white")
+
+    # release win key
+    def rel_win(self):
+        keyboard.release('win')
+
+        self.row6buttons[1].config(
+            relief=RAISED,
+            bg=self.gray,
+            activebackground=self.darkgray,
+            activeforeground="#bababa",
+            fg="white"
+        )
+
+    # press win key
+    def prs_win(self):
+        keyboard.press('win')
+
+        self.row6buttons[1].config(
+            relief=SUNKEN,
+            activebackground=self.gray,
+            bg=self.darkgray,
+            fg="#bababa",
+            activeforeground="white")
+
     # function to press and release keys
     def vpresskey(self, x):
         self.master.withdraw()
@@ -536,183 +668,39 @@ class VirtualKeyboard:
         self.master.wm_deiconify()
 
         if not self.spl_key_pressed:
-            keyboard.release('shift')
-            self.row5buttons[0].config(
-                relief=RAISED,
-                bg=self.gray,
-                activebackground=self.darkgray,
-                activeforeground="#bababa",
-                fg="white"
-            )
-            self.row5buttons[11].config(
-                relief=RAISED,
-                bg=self.gray,
-                activebackground=self.darkgray,
-                activeforeground="#bababa",
-                fg="white"
-            )
-            keyboard.release('ctrl')
-            self.row6buttons[0].config(
-                relief=RAISED,
-                bg=self.gray,
-                activebackground=self.darkgray,
-                activeforeground="#bababa",
-                fg="white"
-            )
-            self.row6buttons[5].config(
-                relief=RAISED,
-                bg=self.gray,
-                activebackground=self.darkgray,
-                activeforeground="#bababa",
-                fg="white"
-            )
-            keyboard.release('alt')
-            self.row6buttons[2].config(
-                relief=RAISED,
-                bg=self.gray,
-                activebackground=self.darkgray,
-                activeforeground="#bababa",
-                fg="white"
-            )
-            self.row6buttons[4].config(
-                relief=RAISED,
-                bg=self.gray,
-                activebackground=self.darkgray,
-                activeforeground="#bababa",
-                fg="white"
-            )
-            keyboard.release('win')
-            self.row6buttons[1].config(
-                relief=RAISED,
-                bg=self.gray,
-                activebackground=self.darkgray,
-                activeforeground="#bababa",
-                fg="white"
-            )
+            self.rel_shifts()
+            self.rel_ctrls()
+            self.rel_alts()
+            self.rel_win()
 
     # function to hold SHIFT, CTRL, ALT or WIN keys
     def vupdownkey(self, event, y, a):
         sleep(0.08)
+
         if y == "shift":
             if self.row5buttons[0].cget('relief') == SUNKEN or self.row5buttons[11].cget('relief') == SUNKEN:
-                keyboard.release('shift')
-
-                self.row5buttons[0].config(
-                    relief=RAISED,
-                    bg=self.gray,
-                    activebackground=self.darkgray,
-                    activeforeground="#bababa",
-                    fg="white"
-                )
-                self.row5buttons[11].config(
-                    relief=RAISED,
-                    bg=self.gray,
-                    activebackground=self.darkgray,
-                    activeforeground="#bababa",
-                    fg="white"
-                )
+                self.rel_shifts()
             else:
-                keyboard.press('shift')
-
-                self.row5buttons[0].config(
-                    relief=SUNKEN,
-                    activebackground=self.gray,
-                    bg=self.darkgray,
-                    fg="#bababa",
-                    activeforeground="white")
-                self.row5buttons[11].config(
-                    relief=SUNKEN,
-                    activebackground=self.gray,
-                    bg=self.darkgray,
-                    fg="#bababa",
-                    activeforeground="white")
+                self.prs_shifts()
 
         elif y == "ctrl":
             if self.row6buttons[0].cget('relief') == SUNKEN or self.row6buttons[5].cget('relief') == SUNKEN:
-                keyboard.release('ctrl')
-
-                self.row6buttons[0].config(
-                    relief=RAISED,
-                    bg=self.gray,
-                    activebackground=self.darkgray,
-                    activeforeground="#bababa",
-                    fg="white"
-                )
-                self.row6buttons[5].config(
-                    relief=RAISED,
-                    bg=self.gray,
-                    activebackground=self.darkgray,
-                    activeforeground="#bababa",
-                    fg="white"
-                )
+                self.rel_ctrls()
             else:
-                keyboard.press('ctrl')
+                self.prs_ctrls()
 
-                self.row6buttons[0].config(
-                    relief=SUNKEN,
-                    activebackground=self.gray,
-                    bg=self.darkgray,
-                    fg="#bababa",
-                    activeforeground="white")
-                self.row6buttons[5].config(
-                    relief=SUNKEN,
-                    activebackground=self.gray,
-                    bg=self.darkgray,
-                    fg="#bababa",
-                    activeforeground="white")
         elif y == "alt":
             if self.row6buttons[2].cget('relief') == SUNKEN or self.row6buttons[4].cget('relief') == SUNKEN:
-                keyboard.release('alt')
-
-                self.row6buttons[2].config(
-                    relief=RAISED,
-                    bg=self.gray,
-                    activebackground=self.darkgray,
-                    activeforeground="#bababa",
-                    fg="white"
-                )
-                self.row6buttons[4].config(
-                    relief=RAISED,
-                    bg=self.gray,
-                    activebackground=self.darkgray,
-                    activeforeground="#bababa",
-                    fg="white"
-                )
+                self.rel_alts()
             else:
-                keyboard.press('alt')
+                self.prs_alts()
 
-                self.row6buttons[2].config(
-                    relief=SUNKEN,
-                    activebackground=self.gray,
-                    bg=self.darkgray,
-                    fg="#bababa",
-                    activeforeground="white")
-                self.row6buttons[4].config(
-                    relief=SUNKEN,
-                    activebackground=self.gray,
-                    bg=self.darkgray,
-                    fg="#bababa",
-                    activeforeground="white")
         elif y == "win":
             if self.row6buttons[1].cget('relief') == SUNKEN:
-                keyboard.release('win')
-
-                self.row6buttons[1].config(
-                    relief=RAISED,
-                    bg=self.gray,
-                    activebackground=self.darkgray,
-                    activeforeground="#bababa",
-                    fg="white"
-                )
+                self.rel_win()
             else:
-                keyboard.press('win')
+                self.prs_win()
 
-                self.row6buttons[1].config(
-                    relief=SUNKEN,
-                    activebackground=self.gray,
-                    bg=self.darkgray,
-                    fg="#bababa",
-                    activeforeground="white")
         if a == "L":
             self.spl_key_pressed = False
             # presses shift, alt, ctrl or win temporarily until remaining keys pressed
@@ -781,6 +769,11 @@ class VirtualKeyboard:
     # Settings window
     def kb_settings(self):
         self.removekbfromtop()
+        self.rel_shifts()
+        self.rel_alts()
+        self.rel_ctrls()
+        self.rel_win()
+
         settings_window = Toplevel()
 
         settings_window.geometry(f'400x344+{int(self.user_scr_width/2)-200}+{int(self.user_scr_height/2)-200}')
