@@ -32,4 +32,5 @@ This is my first ever proper GUI based application after learning tkinter recent
 ### Thank You!
 Enjoy the program :)
 I would *really* appreciate some feedback and tips!
+
 ( fun thing to do: add any PNG image in the same folder as the main python file and name it "vkblogo.png".... it will become the icon in the title bar of the keyboard :P )
