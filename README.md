@@ -6,6 +6,7 @@ This is my first ever proper GUI based application project after learning tkinte
 
 ## Features
 - You can open the keyboard settings menu with the button in the bottom right corner
+- The keyboard is stored as a class named `VirtualKeyboard`, which you can import anywhere and use `VirtualKeyboard.start()` to display the keyboard window
 - The keyboard comes in 5 sizes:
 	- Very Small
 	- Small
