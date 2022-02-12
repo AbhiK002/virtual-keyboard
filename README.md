@@ -1,7 +1,7 @@
 # Virtual Keyboard
 A GUI application made in python using tkinter
 
-This is my first ever proper GUI based application after learning tkinter recently.
+This is my first ever proper GUI based application project after learning tkinter recently. I made it to practice and get more used to working with tkinter
 
 ### Features
 - You can open the keyboard settings menu with the button in the bottom right corner
