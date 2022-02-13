@@ -40,7 +40,7 @@ class VirtualKeyboard:
         self.user_scr_width = int(master.winfo_screenwidth())
         self.user_scr_height = int(master.winfo_screenheight())
 
-        self.trans_value = 1.0
+        self.trans_value = 0.6
         master.attributes('-alpha', self.trans_value)
         master.attributes('-topmost', True)
 
@@ -661,8 +661,7 @@ class VirtualKeyboard:
     # function to press and release keys
     def vpresskey(self, x):
         self.master.withdraw()
-        sleep(0.08)
-
+        sleep(0.1)
         # print(f"Pressed {str(x)}")
         keyboard.send(str(x))
         self.master.wm_deiconify()
