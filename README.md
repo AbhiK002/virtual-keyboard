@@ -36,9 +36,9 @@ Read more about the [keyboard](https://pypi.org/project/keyboard/) module
 
 ![s1main](https://user-images.githubusercontent.com/68178267/153722634-f70a6942-4976-4807-9fac-9efb7e188f05.png)
 ![s6shift](https://user-images.githubusercontent.com/68178267/153722731-90f4930c-7ff1-43ea-8144-0a10b901410e.png)
-![s2settings](https://user-images.githubusercontent.com/68178267/153722636-43548ac7-1a73-41ff-80ab-bc8d2685408e.png)
-![s3vsmall30](https://user-images.githubusercontent.com/68178267/153722638-7d52a45a-c658-4125-9709-19a36536b212.png)
-![s4vlarge70](https://user-images.githubusercontent.com/68178267/153722640-ebcbe5aa-b820-4638-96e9-86c4ce4a9d47.png)
+![s2settings](https://user-images.githubusercontent.com/68178267/153747659-8aa5a779-a85b-492a-bb66-e0f5a165a3d3.png)
+![s3vsmall30](https://user-images.githubusercontent.com/68178267/153747661-ecb3de0b-8fba-4185-88c1-f7a4f5be06f9.png)
+![s4vlarge100](https://user-images.githubusercontent.com/68178267/153747662-7c05fe98-a5a9-461c-acb3-cab8a4330688.png)
 ![s5fun](https://user-images.githubusercontent.com/68178267/153722641-1d16bcbe-a3f2-451c-a553-d86b92ee57cd.png)
 
 ### Thank You!
