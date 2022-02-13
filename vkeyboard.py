@@ -40,7 +40,7 @@ class VirtualKeyboard:
         self.user_scr_width = int(master.winfo_screenwidth())
         self.user_scr_height = int(master.winfo_screenheight())
 
-        self.trans_value = 0.6
+        self.trans_value = 0.7
         master.attributes('-alpha', self.trans_value)
         master.attributes('-topmost', True)
 
