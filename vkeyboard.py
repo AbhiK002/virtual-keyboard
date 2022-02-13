@@ -8,12 +8,12 @@ class VirtualKeyboard:
 
     def __init__(self):
         # Main Window
-        master = Tk()
-        self.master = master
+        self.master = Tk()
+
         # prevent from crash if photo isn't found
         try:
             vkblogo = PhotoImage(file="vkblogo.png")
-            master.iconphoto(True, vkblogo)
+            self.master.iconphoto(True, vkblogo)
         except TclError:
             # logo not found locally
             pass
@@ -36,12 +36,12 @@ class VirtualKeyboard:
         # makes sure shift/ctrl/alt/win keys aren't pressed down after keyboard closed
         self.master.protocol("WM_DELETE_WINDOW", lambda: [keyboard.release('shift'), keyboard.release('ctrl'), keyboard.release('alt'), keyboard.release('win'), self.master.destroy()])
 
-        self.user_scr_width = int(master.winfo_screenwidth())
-        self.user_scr_height = int(master.winfo_screenheight())
+        self.user_scr_width = int(self.master.winfo_screenwidth())
+        self.user_scr_height = int(self.master.winfo_screenheight())
 
         self.trans_value = 0.7
-        master.attributes('-alpha', self.trans_value)
-        master.attributes('-topmost', True)
+        self.master.attributes('-alpha', self.trans_value)
+        self.master.attributes('-topmost', True)
 
         # avoid keyboard size conflicts for screens with lower resolution
         self.size_value_map = [
@@ -57,8 +57,8 @@ class VirtualKeyboard:
         self.size_current = 2
 
         # open keyboard in medium size by default (not resizable)
-        master.geometry(f"{self.size_value_map[self.size_current][0]}x{self.size_value_map[self.size_current][1]}")
-        master.resizable(False, False)
+        self.master.geometry(f"{self.size_value_map[self.size_current][0]}x{self.size_value_map[self.size_current][1]}")
+        self.master.resizable(False, False)
 
         # keys in every row
         self.row1keys = ["esc", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10",
@@ -96,9 +96,9 @@ class VirtualKeyboard:
         appendrow6 = self.row6buttons.append
 
         # prevents frames having inconsistent relative dimensions
-        Grid.columnconfigure(master, 0, weight=1)
+        Grid.columnconfigure(self.master, 0, weight=1)
         for i in range(7):
-            Grid.rowconfigure(master, i, weight=1)
+            Grid.rowconfigure(self.master, i, weight=1)
 
         # Create fonts
         self.keyfont = font.Font(family="Arial", size=13, weight='bold')
@@ -112,7 +112,7 @@ class VirtualKeyboard:
         #   ROW 1
 
         # create a frame for row1buttons
-        keyframe1 = Frame(master, height=1)
+        keyframe1 = Frame(self.master, height=1)
         Grid.rowconfigure(keyframe1, 0, weight=1)
 
         # create row1buttons
@@ -145,7 +145,7 @@ class VirtualKeyboard:
         #   ROW 2   #
 
         # create a frame for row2buttons
-        keyframe2 = Frame(master, height=1)
+        keyframe2 = Frame(self.master, height=1)
         Grid.rowconfigure(keyframe2, 0, weight=1)
 
         # create row2buttons
@@ -187,12 +187,11 @@ class VirtualKeyboard:
         self.row2buttons[10].config(text=")\n0")
         self.row2buttons[11].config(text="_\n-", command=lambda x='-': self.quest_press(x))
         self.row2buttons[12].config(text="+\n=")
-        keyframe2.update()
 
         #   ROW 3   #
 
         # create a frame for row3buttons
-        keyframe3 = Frame(master, width=1)
+        keyframe3 = Frame(self.master, width=1)
         Grid.rowconfigure(keyframe3, 0, weight=1)
 
         # create row3buttons
@@ -232,7 +231,7 @@ class VirtualKeyboard:
         #   ROW 4   #
 
         # create a frame for row4buttons
-        keyframe4 = Frame(master, height=1)
+        keyframe4 = Frame(self.master, height=1)
         Grid.rowconfigure(keyframe4, 0, weight=1)
 
         # create row4buttons
@@ -267,7 +266,7 @@ class VirtualKeyboard:
         #   ROW 5   #
 
         # create a frame for row5buttons
-        keyframe5 = Frame(master, height=1)
+        keyframe5 = Frame(self.master, height=1)
         Grid.rowconfigure(keyframe5, 0, weight=1)
 
         # create row5buttons
@@ -313,7 +312,7 @@ class VirtualKeyboard:
         #   ROW 6   #
 
         # create a frame for row6buttons
-        keyframe6 = Frame(master, height=1)
+        keyframe6 = Frame(self.master, height=1)
         Grid.rowconfigure(keyframe6, 0, weight=1)
 
         # create row6buttons
@@ -367,7 +366,7 @@ class VirtualKeyboard:
             self.row6buttons[ind].grid(row=0, column=ind, sticky="NSEW")
 
         # create final frame 7 for custom keys
-        infoframe7 = Frame(master, height=1, bg=self.gray)
+        infoframe7 = Frame(self.master, height=1, bg=self.gray)
         Grid.rowconfigure(infoframe7, 0, weight=1)
 
         # empty space
