@@ -10,7 +10,6 @@ class VirtualKeyboard:
         # Main Window
         master = Tk()
         self.master = master
-
         # prevent from crash if photo isn't found
         try:
             vkblogo = PhotoImage(file="vkblogo.png")
@@ -373,7 +372,7 @@ class VirtualKeyboard:
 
         # empty space
         Grid.columnconfigure(infoframe7, 0, weight=1)
-        Button(infoframe7, text="Right click to hold\nSHIFT, CTRL, ALT or WIN keys", bg=self.gray, relief=FLAT, state=DISABLED).grid(row=0, column=0, sticky="NSEW")
+        Button(infoframe7, text="Right click to hold\nSHIFT, CTRL, ALT or WIN keys", bg=self.gray, relief=FLAT, disabledforeground="white", state=DISABLED).grid(row=0, column=0, sticky="NSEW")
 
         # copy button
         Grid.columnconfigure(infoframe7, 2, weight=2)
@@ -664,7 +663,8 @@ class VirtualKeyboard:
         sleep(0.08)
         # print(f"Pressed {str(x)}")
         keyboard.send(str(x))
-        sleep(0.02)
+        sleep(0.01)
+        self.master.update()
         self.master.wm_deiconify()
 
         if not self.spl_key_pressed:
@@ -775,41 +775,46 @@ class VirtualKeyboard:
         self.rel_win()
 
         settings_window = Toplevel()
-
         settings_window.geometry(f'400x344+{int(self.user_scr_width/2)-200}+{int(self.user_scr_height/2)-200}')
 
         settings_window.title("Virtual KeyBoard Settings")
         settings_window.resizable(False, False)
-        settings_window.config(bg=self.darkgray)
+        settings_window.config(bg=self.gray)
+        settings_window.overrideredirect(True)
         settings_window.grab_set()
-        settings_window.focus_force()
+        settings_window.focus_set()
 
         # Fonts for settings window
         stitlefont = font.Font(family="Calibri", size="20", weight="bold")
-        sfont = font.Font(family="Calibri", size="16", weight="normal")
+        sfont = font.Font(family="Calibri", size="16", weight="bold")
 
-        stitle = Label(settings_window, text="⚙ Keyboard Settings", font=stitlefont, bg=self.darkgray, fg=self.yellow)
+        mainframe = Frame(settings_window, height=344, width=400, bg=self.gray, highlightthickness=2, highlightbackground=self.yellow)
+
+        stitle = Label(mainframe, text="Keyboard Settings", font=stitlefont, bg=self.gray, fg=self.yellow)
         stitle.place(anchor=N, x=200, y=20)
 
-        transtitle = Label(settings_window, text="🔎 Opacity", font=sfont, bg=self.darkgray, fg="white", anchor=CENTER)
+        transtitle = Label(mainframe, text="Opacity", font=sfont, bg=self.gray, fg=self.blue, anchor=CENTER)
         transtitle.place(anchor=N, x=200, y=100)
-        translabel = Label(settings_window, text=str(int(self.trans_value * 100)) + "%", font=sfont, bg=self.darkgray, fg="green")
+        translabel = Label(mainframe, text=str(int(self.trans_value * 100)) + "%", font=sfont, bg=self.gray, fg="white")
         translabel.place(anchor=N, x=200, y=140)
-        transbuttless = Button(settings_window, text="-", font=stitlefont, bg=self.red, fg="white", command=lambda: [self.inc_trans(), translabel.config(text=(str(int(self.trans_value * 100)) + "%"))])
+        transbuttless = Button(mainframe, text="-", font=stitlefont, bg=self.red, fg="white", command=lambda: [self.inc_trans(), translabel.config(text=(str(int(self.trans_value * 100)) + "%"))])
         transbuttless.place(x=100, y=145, height=20, width=30)
-        transbuttmore = Button(settings_window, text="+", font=stitlefont, bg="green", fg="white", command=lambda: [self.dec_trans(), translabel.config(text=(str(int(self.trans_value * 100)) + "%"))])
+        transbuttmore = Button(mainframe, text="+", font=stitlefont, bg="green", fg="white", command=lambda: [self.dec_trans(), translabel.config(text=(str(int(self.trans_value * 100)) + "%"))])
         transbuttmore.place(x=270, y=145, height=20, width=30)
 
-        sizetitle = Label(settings_window, text="💤 Keyboard Size", font=sfont, bg=self.darkgray, fg="white", anchor=CENTER)
+        sizetitle = Label(mainframe, text="Keyboard Size", font=sfont, bg=self.gray, fg=self.blue, anchor=CENTER)
         sizetitle.place(anchor=N, x=200, y=190)
-        sizelabel = Label(settings_window, text=self.size_value_names[self.size_current], font=sfont, bg=self.darkgray, fg="green")
+        sizelabel = Label(mainframe, text=self.size_value_names[self.size_current], font=sfont, bg=self.gray, fg="white")
         sizelabel.place(anchor=N, x=200, y=230)
-        sizebuttless = Button(settings_window, text="-", font=stitlefont, bg=self.red, fg="white", command=lambda: [self.dec_size(), sizelabel.config(text=self.size_value_names[self.size_current])])
+        sizebuttless = Button(mainframe, text="-", font=stitlefont, bg=self.red, fg="white", command=lambda: [self.dec_size(), sizelabel.config(text=self.size_value_names[self.size_current])])
         sizebuttless.place(x=100, y=237, height=20, width=30)
-        sizebuttmore = Button(settings_window, text="+", font=stitlefont, bg="green", fg="white", command=lambda: [self.inc_size(), sizelabel.config(text=self.size_value_names[self.size_current])])
+        sizebuttmore = Button(mainframe, text="+", font=stitlefont, bg="green", fg="white", command=lambda: [self.inc_size(), sizelabel.config(text=self.size_value_names[self.size_current])])
         sizebuttmore.place(x=270, y=237, height=20, width=30)
 
-        settings_window.protocol("WM_DELETE_WINDOW", lambda: [self.addkbtotop(), settings_window.destroy()])
+        donebutton = Button(mainframe, text="Done", anchor=S, font=stitlefont, bg=self.purple, activebackground=self.darkpurple, fg="black", command=lambda: [settings_window.destroy(), sleep(0.02), self.addkbtotop()])
+        donebutton.place(x=155, y=290, height=35, width=90)
+
+        mainframe.place(x=0, y=0)
         settings_window.mainloop()
 
     # function to check if keyboard on top or not and revert the option
