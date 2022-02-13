@@ -661,9 +661,10 @@ class VirtualKeyboard:
     # function to press and release keys
     def vpresskey(self, x):
         self.master.withdraw()
-        sleep(0.1)
+        sleep(0.08)
         # print(f"Pressed {str(x)}")
         keyboard.send(str(x))
+        sleep(0.02)
         self.master.wm_deiconify()
 
         if not self.spl_key_pressed:
