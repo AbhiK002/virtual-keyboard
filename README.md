@@ -46,3 +46,5 @@ Enjoy the program :)
 I would *really* appreciate some feedback and tips!
 
 ( fun thing to do: add any PNG image in the same folder as the main python file and name it "vkblogo.png".... it should become the icon in the title bar of the keyboard :P )
+
+GitHub: https://github.com/AbhiK002/virtual-keyboard
