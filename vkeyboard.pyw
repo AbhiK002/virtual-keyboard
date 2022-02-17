@@ -1,6 +1,14 @@
 from tkinter import *
 import tkinter.font as font
-import keyboard
+from tkinter import messagebox
+from sys import exit as end
+try:
+    import keyboard
+except ModuleNotFoundError:
+    dummy = Tk()
+    dummy.withdraw()
+    messagebox.showwarning('Missing Module: keyboard', 'Please install "keyboard" module for this program to work. Use this command in Command Prompt:\n\npip install keyboard')
+    end()
 
 
 class VirtualKeyboard:
