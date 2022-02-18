@@ -71,6 +71,7 @@ _Note: If you don't have the `keyboard` module installed, the program will still
 Hope you enjoy the keyboard!
 
 I would *really* appreciate some feedback and tips!
+[Reddit Post](https://www.reddit.com/r/Python/comments/svoo79/i_made_a_virtual_keyboard_my_first_ever_gui_based/)
 
 ( fun thing to do: add any PNG image in the same folder as the main python file and name it "vkblogo.png".... it should become the icon in the title bar of the keyboard :P )
 
