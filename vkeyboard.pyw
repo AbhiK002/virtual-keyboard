@@ -2,13 +2,19 @@ from tkinter import *
 import tkinter.font as font
 from tkinter import messagebox
 from sys import exit as end
+
+# if user has the keyboard module installed
+has_keyboard = True
+
 try:
     import keyboard
 except ModuleNotFoundError:
+    # user doesn't have keyboard module installed
     dummy = Tk()
     dummy.withdraw()
-    messagebox.showwarning('Missing Module: keyboard', 'Please install "keyboard" module for this program to work. Use this command in Command Prompt:\n\npip install keyboard')
-    end()
+    messagebox.showwarning('Missing Module: keyboard', 'Please install "keyboard" module for this keyboard to work correctly. Use this command in Command Prompt:\n\npip install keyboard\n\nThe keyboard will now open in a non functional state.')
+    dummy.destroy()
+    has_keyboard = False
 
 
 class VirtualKeyboard:
@@ -38,11 +44,15 @@ class VirtualKeyboard:
         self.yellow = "#ebe481"
 
         self.master.configure(bg=self.gray)
+        self.unmap_bind = self.master.bind("<Unmap>", lambda e: [self.rel_win(), self.rel_alts(), self.rel_shifts(), self.rel_ctrls()])
         self.master.title("Virtual Keyboard")
 
         # makes sure shift/ctrl/alt/win keys aren't pressed down after keyboard closed
-        self.master.protocol("WM_DELETE_WINDOW", lambda: [keyboard.release('shift'), keyboard.release('ctrl'), keyboard.release('alt'), keyboard.release('win'), self.master.destroy()])
-
+        if has_keyboard:
+            self.master.protocol("WM_DELETE_WINDOW", lambda: [keyboard.release('shift'), keyboard.release('ctrl'), keyboard.release('alt'), keyboard.release('win'), self.master.destroy(), end()])
+        else:
+            self.master.protocol("WM_DELETE_WINDOW", lambda: [self.master.destroy(), end()])
+            self.master.title("Virtual Keyboard (NON FUNCTIONAL)")
         self.user_scr_width = int(self.master.winfo_screenwidth())
         self.user_scr_height = int(self.master.winfo_screenheight())
 
@@ -108,7 +118,7 @@ class VirtualKeyboard:
             Grid.rowconfigure(self.master, i, weight=1)
 
         # Create fonts
-        self.keyfont = font.Font(family="Arial", size=13, weight='bold')
+        self.keyfont = font.Font(family="Calibri", size=13, weight='bold')
         self.bottomfont = font.Font(family='Calibri', size=14, weight='bold')
         self.neetfont = font.Font(family='Lucida Handwriting', size=11, weight='normal')
 
@@ -135,8 +145,7 @@ class VirtualKeyboard:
                 activeforeground="#bababa",
                 fg="white",
                 width=1,
-                relief=RAISED,
-                command=lambda x=key: self.vpresskey(x)
+                relief=RAISED
             ))
             if key == "print_screen":
                 self.row1buttons[ind].config(text="PrtScr", width=3)
@@ -171,8 +180,7 @@ class VirtualKeyboard:
                 activeforeground="#bababa",
                 fg="white",
                 width=1,
-                relief=RAISED,
-                command=lambda x=key: self.vpresskey(x)
+                relief=RAISED
             ))
             if key == "page_up":
                 self.row2buttons[ind].config(text="Pg Up", width=2)
@@ -185,14 +193,14 @@ class VirtualKeyboard:
         self.row2buttons[1].config(text="!\n1")
         self.row2buttons[2].config(text="@\n2")
         self.row2buttons[3].config(text="#\n3")
-        self.row2buttons[4].config(text="$   \n4  ₹")
+        self.row2buttons[4].config(text="$\n4")
         self.row2buttons[5].config(text="%\n5")
         self.row2buttons[6].config(text="^\n6")
         self.row2buttons[7].config(text="&\n7")
         self.row2buttons[8].config(text="*\n8")
         self.row2buttons[9].config(text="(\n9")
         self.row2buttons[10].config(text=")\n0")
-        self.row2buttons[11].config(text="_\n-", command=lambda x='-': self.quest_press(x))
+        self.row2buttons[11].config(text="_\n-")
         self.row2buttons[12].config(text="+\n=")
 
         #   ROW 3   #
@@ -217,8 +225,7 @@ class VirtualKeyboard:
                 activeforeground="#bababa",
                 fg="white",
                 width=1,
-                relief=RAISED,
-                command=lambda x=key: self.vpresskey(x)
+                relief=RAISED
             ))
             if key == "page_down":
                 self.row3buttons[ind].config(text="Pg Dn", width=2)
@@ -254,8 +261,7 @@ class VirtualKeyboard:
                 activeforeground="#bababa",
                 fg="white",
                 width=2,
-                relief=RAISED,
-                command=lambda x=key: self.vpresskey(x)
+                relief=RAISED
             ))
             if key == ";":
                 self.row4buttons[ind].config(text=":\n;")
@@ -292,25 +298,22 @@ class VirtualKeyboard:
                 activeforeground="#bababa",
                 fg="white",
                 width=1,
-                relief=RAISED,
-                command=lambda x=key: self.vpresskey(x)
+                relief=RAISED
             ))
             if key == ",":
                 self.row5buttons[ind].config(text="<\n,")
             elif key == ".":
                 self.row5buttons[ind].config(text=">\n.")
             elif key == "/":
-                self.row5buttons[ind].config(text="?\n/", command=lambda x='/': self.quest_press(x))
+                self.row5buttons[ind].config(text="?\n/")
             elif key == "up":
                 self.row5buttons[ind].config(text="↑")
             elif key == "insert":
                 self.row5buttons[ind].config(text="Insert", width=1)
             elif key == "left shift":
-                self.row5buttons[ind].config(text="Shift", width=6, command=lambda: self.vupdownkey(event="<Button-1>", y='shift', a="L"))
-                self.row5buttons[0].bind('<Button-3>', lambda event="<Button-3>", y='shift', a="R": self.vupdownkey(event, y, a))
+                self.row5buttons[ind].config(text="Shift", width=6)
             elif key == "right shift":
-                self.row5buttons[ind].config(text="Shift", width=6, command=lambda: self.vupdownkey(event="<Button-1>", y='shift', a="L"))
-                self.row5buttons[11].bind('<Button-3>', lambda event="<Button-3>", y='shift', a="R": self.vupdownkey(event, y, a))
+                self.row5buttons[ind].config(text="Shift", width=6)
             else:
                 self.row5buttons[ind].config(text=str(key).title())
 
@@ -338,8 +341,7 @@ class VirtualKeyboard:
                 activeforeground="#bababa",
                 fg="white",
                 width=1,
-                relief=RAISED,
-                command=lambda x=key: self.vpresskey(x)
+                relief=RAISED
             ))
 
             if key == "left":
@@ -351,20 +353,15 @@ class VirtualKeyboard:
             elif key == "spacebar":
                 self.row6buttons[ind].config(text="\n")
             elif key == "win":
-                self.row6buttons[ind].config(text="Win", command=lambda: self.vupdownkey("<Button-1>", 'win', "L"))
-                self.row6buttons[1].bind('<Button-3>', lambda event="<Button-3>", y='win', a="R": self.vupdownkey(event, y, a))
+                self.row6buttons[ind].config(text="Win")
             elif key == "left ctrl":
-                self.row6buttons[ind].config(text="Ctrl", command=lambda: self.vupdownkey("<Button-1>", 'ctrl', "L"))
-                self.row6buttons[0].bind('<Button-3>', lambda event="<Button-3>", y='ctrl', a="R": self.vupdownkey(event, y, a))
+                self.row6buttons[ind].config(text="Ctrl")
             elif key == "right ctrl":
-                self.row6buttons[ind].config(text="Ctrl", command=lambda: self.vupdownkey("<Button-1>", 'ctrl', "L"))
-                self.row6buttons[5].bind('<Button-3>', lambda event="<Button-3>", y='ctrl', a="R": self.vupdownkey(event, y, a))
+                self.row6buttons[ind].config(text="Ctrl")
             elif key == "alt":
-                self.row6buttons[ind].config(text="Alt", command=lambda: self.vupdownkey("<Button-1>", 'alt', "L"))
-                self.row6buttons[2].bind('<Button-3>', lambda event="<Button-3>", y='alt', a="R": self.vupdownkey(event, y, a))
+                self.row6buttons[ind].config(text="Alt")
             elif key == "alt gr":
-                self.row6buttons[ind].config(text="Alt", command=lambda: self.vupdownkey("<Button-1>", 'alt', "L"))
-                self.row6buttons[4].bind('<Button-3>', lambda event="<Button-3>", y='alt', a="R": self.vupdownkey(event, y, a))
+                self.row6buttons[ind].config(text="Alt")
             elif key == ":)":
                 self.row6buttons[ind].config(text=key, width=4, bg=self.red, activebackground=self.darkred, command=self.donothing)
             else:
@@ -378,7 +375,8 @@ class VirtualKeyboard:
 
         # empty space
         Grid.columnconfigure(infoframe7, 0, weight=1)
-        Button(infoframe7, text="Right click to hold\nSHIFT, CTRL, ALT or WIN keys", bg=self.gray, relief=FLAT, disabledforeground="white", state=DISABLED).grid(row=0, column=0, sticky="NSEW")
+        self.tips_space = Button(infoframe7, text="Right click to hold\nSHIFT, CTRL, ALT or WIN keys", bg=self.gray, relief=FLAT, disabledforeground="white", state=DISABLED)
+        self.tips_space.grid(row=0, column=0, sticky="NSEW")
 
         # copy button
         Grid.columnconfigure(infoframe7, 2, weight=2)
@@ -392,9 +390,9 @@ class VirtualKeyboard:
             activeforeground="black",
             fg="black",
             width=1,
-            relief=RAISED,
-            command=lambda: self.vpresskey('ctrl+c')
-        ).grid(row=0, column=2, padx=2, sticky="NSEW")
+            relief=RAISED
+        )
+        self.copy_button.grid(row=0, column=2, padx=2, sticky="NSEW")
 
         # cut button
         Grid.columnconfigure(infoframe7, 3, weight=2)
@@ -408,9 +406,9 @@ class VirtualKeyboard:
             activeforeground="black",
             fg="black",
             width=1,
-            relief=RAISED,
-            command=lambda: self.vpresskey('ctrl+x')
-        ).grid(row=0, column=3, padx=2, sticky="NSEW")
+            relief=RAISED
+        )
+        self.cut_button.grid(row=0, column=3, padx=2, sticky="NSEW")
 
         # paste button
         Grid.columnconfigure(infoframe7, 4, weight=2)
@@ -424,9 +422,9 @@ class VirtualKeyboard:
             activeforeground="black",
             fg="black",
             width=1,
-            relief=RAISED,
-            command=lambda: self.vpresskey('ctrl+v')
-        ).grid(row=0, column=4, padx=2, sticky="NSEW")
+            relief=RAISED
+        )
+        self.paste_button.grid(row=0, column=4, padx=2, sticky="NSEW")
 
         # select all button
         Grid.columnconfigure(infoframe7, 5, weight=3)
@@ -440,9 +438,9 @@ class VirtualKeyboard:
             activeforeground="black",
             fg="black",
             width=1,
-            relief=RAISED,
-            command=lambda: self.vpresskey('ctrl+a')
-        ).grid(row=0, column=5, padx=2, sticky="NSEW")
+            relief=RAISED
+        )
+        self.selall_button.grid(row=0, column=5, padx=2, sticky="NSEW")
 
         # empty space
         Grid.columnconfigure(infoframe7, 6, weight=1)
@@ -460,9 +458,9 @@ class VirtualKeyboard:
             activeforeground="black",
             fg="black",
             width=1,
-            relief=RAISED,
-            command=lambda: [self.removekbfromtop(), self.vpresskey('ctrl+shift+esc')]
-        ).grid(row=0, column=7, padx=2, sticky="NSEW")
+            relief=RAISED
+        )
+        self.taskmnger_button.grid(row=0, column=7, padx=2, sticky="NSEW")
 
         # pin keyboard button
         Grid.columnconfigure(infoframe7, 8, weight=5)
@@ -476,8 +474,8 @@ class VirtualKeyboard:
             activeforeground="black",
             fg="black",
             width=1,
-            relief=SUNKEN,
-            command=self.keyboard_top)
+            relief=SUNKEN
+            , command=self.keyboard_top)
         self.pinkb_button.grid(row=0, column=8, padx=2, sticky="NSEW")
 
         # settings button
@@ -513,9 +511,9 @@ class VirtualKeyboard:
     # nothing
     def donothing(self):
         """
-        This function is empty for now...
-        maybe a new feature for the [ :) ] button
-        """
+            This function is empty for now...
+            maybe a new feature for the [ :) ] button
+            """
         pass
 
     # an exception to get the symbols ? and _ from the keyboard module's virtual hotkeys
@@ -665,6 +663,7 @@ class VirtualKeyboard:
 
     # function to press and release keys
     def vpresskey(self, x):
+        self.master.unbind("<Unmap>", self.unmap_bind)
         self.master.withdraw()
         self.master.after(80, keyboard.send(str(x)))
         # print(f"Pressed {str(x)}")
@@ -675,6 +674,10 @@ class VirtualKeyboard:
             self.rel_ctrls()
             self.rel_alts()
             self.rel_win()
+
+        if self.pinkb_button.cget('relief') == RAISED:
+            self.addkbtotop()
+        self.unmap_bind = self.master.bind("<Unmap>", lambda e: [self.rel_win(), self.rel_alts(), self.rel_shifts(), self.rel_ctrls()])
 
     # function to hold SHIFT, CTRL, ALT or WIN keys
     def vupdownkey(self, event, y, a):
@@ -772,13 +775,14 @@ class VirtualKeyboard:
     # Settings window
     def kb_settings(self):
         self.removekbfromtop()
-        self.rel_shifts()
-        self.rel_alts()
-        self.rel_ctrls()
-        self.rel_win()
+        if has_keyboard:
+            self.rel_shifts()
+            self.rel_alts()
+            self.rel_ctrls()
+            self.rel_win()
 
         settings_window = Toplevel()
-        settings_window.geometry(f'400x344+{int(self.user_scr_width/2)-200}+{int(self.user_scr_height/2)-200}')
+        settings_window.geometry(f'400x344+{int(self.user_scr_width / 2) - 200}+{int(self.user_scr_height / 2) - 200}')
 
         settings_window.title("Virtual KeyBoard Settings")
         settings_window.resizable(False, False)
@@ -831,9 +835,74 @@ class VirtualKeyboard:
 
     # start keyboard
     def start(self):
+        if not has_keyboard:
+            self.tips_space.config(text="Enjoy the buttons :)")
         self.master.mainloop()
+
+    # add functionality to keyboard
+    def engine(self):
+        for key in self.row1keys:
+            ind = self.row1keys.index(str(key))
+            self.row1buttons[ind].config(command=lambda x=key: self.vpresskey(x))
+
+        for key in self.row2keys:
+            ind = self.row2keys.index(str(key))
+            self.row2buttons[ind].config(command=lambda x=key: self.vpresskey(x))
+        self.row2buttons[11].config(command=lambda x='-': self.quest_press(x))
+
+        for key in self.row3keys:
+            ind = self.row3keys.index(str(key))
+            self.row3buttons[ind].config(command=lambda x=key: self.vpresskey(x))
+
+        for key in self.row4keys:
+            ind = self.row4keys.index(str(key))
+            self.row4buttons[ind].config(command=lambda x=key: self.vpresskey(x))
+
+        for key in self.row5keys:
+            ind = self.row5keys.index(str(key))
+            self.row5buttons[ind].config(command=lambda x=key: self.vpresskey(x))
+            if key == "/":
+                self.row5buttons[ind].config(command=lambda x='/': self.quest_press(x))
+            elif key == "left shift":
+                self.row5buttons[ind].config(command=lambda: self.vupdownkey(event="<Button-1>", y='shift', a="L"))
+                self.row5buttons[ind].bind('<Button-3>', lambda event="<Button-3>", y='shift', a="R": self.vupdownkey(event, y, a))
+            elif key == "right shift":
+                self.row5buttons[ind].config(command=lambda: self.vupdownkey(event="<Button-1>", y='shift', a="L"))
+                self.row5buttons[ind].bind('<Button-3>', lambda event="<Button-3>", y='shift', a="R": self.vupdownkey(event, y, a))
+
+        for key in self.row6keys:
+            ind = self.row6keys.index(str(key))
+            self.row6buttons[ind].config(command=lambda x=key: self.vpresskey(x))
+            if key == "win":
+                self.row6buttons[ind].config(command=lambda: self.vupdownkey("<Button-1>", 'win', "L"))
+                self.row6buttons[ind].bind('<Button-3>', lambda event="<Button-3>", y='win', a="R": self.vupdownkey(event, y, a))
+            elif key == "left ctrl":
+                self.row6buttons[ind].config(command=lambda: self.vupdownkey("<Button-1>", 'ctrl', "L"))
+                self.row6buttons[ind].bind('<Button-3>', lambda event="<Button-3>", y='ctrl', a="R": self.vupdownkey(event, y, a))
+            elif key == "right ctrl":
+                self.row6buttons[ind].config(command=lambda: self.vupdownkey("<Button-1>", 'ctrl', "L"))
+                self.row6buttons[ind].bind('<Button-3>', lambda event="<Button-3>", y='ctrl', a="R": self.vupdownkey(event, y, a))
+            elif key == "alt":
+                self.row6buttons[ind].config(command=lambda: self.vupdownkey("<Button-1>", 'alt', "L"))
+                self.row6buttons[ind].bind('<Button-3>', lambda event="<Button-3>", y='alt', a="R": self.vupdownkey(event, y, a))
+            elif key == "alt gr":
+                self.row6buttons[ind].config(command=lambda: self.vupdownkey("<Button-1>", 'alt', "L"))
+                self.row6buttons[ind].bind('<Button-3>', lambda event="<Button-3>", y='alt', a="R": self.vupdownkey(event, y, a))
+
+        self.copy_button.config(command=lambda: self.vpresskey('ctrl+c'))
+        self.cut_button.config(command=lambda: self.vpresskey('ctrl+x'))
+        self.paste_button.config(command=lambda: self.vpresskey('ctrl+v'))
+        self.selall_button.config(command=lambda: self.vpresskey('ctrl+a'))
+        self.taskmnger_button.config(command=lambda: [self.removekbfromtop(), self.vpresskey('ctrl+shift+esc')])
 
 
 if __name__ == '__main__':
+    # creates a keyboard body with no functionality
     keyboard1 = VirtualKeyboard()
+
+    # if user has keyboard module, adds functionality to keyboard
+    if has_keyboard:
+        keyboard1.engine()
+
+    # starts to display the keyboard
     keyboard1.start()
