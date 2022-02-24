@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter.font as font
 from tkinter import messagebox
 from sys import exit as end
+from os import system
 
 # if user has the keyboard module installed
 has_keyboard = True
@@ -12,9 +13,15 @@ except ModuleNotFoundError:
     # user doesn't have keyboard module installed
     dummy = Tk()
     dummy.withdraw()
-    messagebox.showwarning('Missing Module: keyboard', 'Please install "keyboard" module for this keyboard to work correctly. Use this command in Command Prompt:\n\npip install keyboard\n\nThe keyboard will now open in a non functional state.')
-    dummy.destroy()
-    has_keyboard = False
+    messagebox.showwarning('Missing Module: keyboard', 'Your system is missing the module "keyboard" for this program to work correctly.\n\nPlease click OK to install the "keyboard" module automatically.\nIn case this fails, the keyboard will still open in a non functional state')
+    kbmodulestatus = system('python -m pip install keyboard')
+    if kbmodulestatus != 0:
+        messagebox.showerror('Error', 'Couldn\'t install "keyboard" module automatically. Please try again manually in command prompt using command:\n\npip install keyboard')
+        dummy.destroy()
+        has_keyboard = False
+    else:
+        dummy.destroy()
+        has_keyboard = True
 
 
 class VirtualKeyboard:
