@@ -41,6 +41,7 @@ _(You can skip the `engine()` part if you only want a non functional dummy keybo
 
 ## Requirements
 Only needs the keyboard module to work properly.
+
 How to install the `keyboard` module through `cmd`:
 
 ```
@@ -48,7 +49,9 @@ pip install keyboard
 ```
 Read more about the [keyboard](https://pypi.org/project/keyboard/) module.
 
-_Note: If you don't have the `keyboard` module installed, the program will still open in a non functional state, allowing you to press the buttons (with no effects) and even change the keyboard settings._
+_Note: If the keyboard module is missing from user's computer (Windows only), the program will attempt to install the keyboard module automatically. In case that fails too, the virtual keyboard will still open in a non functional state allowing you admire its appearance and press all the buttons as much as want. 
+You can also change the keyboard settings or pin/unpin the keyboard in non functional state._
+
 ### Please note:
 - The program will _"flash"_ everytime you press any key, but will **definitely still be functional** in almost any text-entry application window.
 
