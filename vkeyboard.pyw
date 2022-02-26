@@ -9,7 +9,7 @@ has_keyboard = True
 
 try:
     import keyboard
-except ModuleNotFoundError:
+except (ModuleNotFoundError, ImportError):
     # user doesn't have keyboard module installed
     dummy = Tk()
     dummy.withdraw()
@@ -20,6 +20,7 @@ except ModuleNotFoundError:
         dummy.destroy()
         has_keyboard = False
     else:
+        import keyboard
         dummy.destroy()
         has_keyboard = True
 
