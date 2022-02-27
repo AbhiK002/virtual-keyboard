@@ -11,15 +11,15 @@ OR
 - Import the class `VirtualKeyboard` to your python program.
 - To create (not display) the keyboard Graphical User Interface use:
 ```
-variableName = VirtualKeyboard()
+objectName = VirtualKeyboard()
 ```
 - To make the keyboard functional (i.e. bind the graphical keys to actual keypresses), use:
 ```
-variableName.engine() 
+objectName.engine() 
 ```
 - To start displaying your virtual keyboard (window), use:
 ```
-variableName.start()
+objectName.start()
 ```
 - Your keyboard is ready to use!
  
