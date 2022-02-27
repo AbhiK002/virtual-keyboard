@@ -53,14 +53,11 @@ class VirtualKeyboard:
 
         self.master.configure(bg=self.gray)
         self.unmap_bind = self.master.bind("<Unmap>", lambda e: [self.rel_win(), self.rel_alts(), self.rel_shifts(), self.rel_ctrls()])
-        self.master.title("Virtual Keyboard")
 
         # makes sure shift/ctrl/alt/win keys aren't pressed down after keyboard closed
-        if has_keyboard:
-            self.master.protocol("WM_DELETE_WINDOW", lambda: [keyboard.release('shift'), keyboard.release('ctrl'), keyboard.release('alt'), keyboard.release('win'), self.master.destroy(), end()])
-        else:
-            self.master.protocol("WM_DELETE_WINDOW", lambda: [self.master.destroy(), end()])
-            self.master.title("Virtual Keyboard (NON FUNCTIONAL)")
+        self.master.protocol("WM_DELETE_WINDOW", lambda: [self.master.destroy(), end()])
+        self.master.title("Virtual Keyboard (NON FUNCTIONAL)")
+
         self.user_scr_width = int(self.master.winfo_screenwidth())
         self.user_scr_height = int(self.master.winfo_screenheight())
 
@@ -125,10 +122,15 @@ class VirtualKeyboard:
         for i in range(7):
             Grid.rowconfigure(self.master, i, weight=1)
 
-        # Create fonts
-        self.keyfont = font.Font(family="Calibri", size=13, weight='bold')
-        self.bottomfont = font.Font(family='Calibri', size=14, weight='bold')
-        self.neetfont = font.Font(family='Lucida Handwriting', size=11, weight='normal')
+        # Create fonts acc to resolution
+        if self.user_scr_width < 1600:
+            self.keyfont = font.Font(family="Calibri", size=10, weight='bold')
+            self.bottomfont = font.Font(family='Calibri', size=11, weight='bold')
+            self.neetfont = font.Font(family='Lucida Handwriting', size=8, weight='normal')
+        else:
+            self.keyfont = font.Font(family="Calibri", size=13, weight='bold')
+            self.bottomfont = font.Font(family='Calibri', size=13, weight='bold')
+            self.neetfont = font.Font(family='Lucida Handwriting', size=10, weight='normal')
 
         # spl_key_pressed is True if ALT, CTRL, SHIFT or WIN are held down using right click
         # if it is False, the 4 mentioned keys get released on clicking any other key
@@ -147,7 +149,7 @@ class VirtualKeyboard:
             appendrow1(Button(
                 keyframe1,
                 font=self.keyfont,
-                border=10,
+                border=7,
                 bg=self.gray,
                 activebackground=self.darkgray,
                 activeforeground="#bababa",
@@ -156,7 +158,7 @@ class VirtualKeyboard:
                 relief=RAISED
             ))
             if key == "print_screen":
-                self.row1buttons[ind].config(text="PrtScr", width=3)
+                self.row1buttons[ind].config(text="PrtScr", width=3, height=2)
             elif key == "scroll_lock":
                 self.row1buttons[ind].config(text="ScrLck", width=3)
             elif key == "numlock":
@@ -182,7 +184,7 @@ class VirtualKeyboard:
             appendrow2(Button(
                 keyframe2,
                 font=self.keyfont,
-                border=10,
+                border=7,
                 bg=self.gray,
                 activebackground=self.darkgray,
                 activeforeground="#bababa",
@@ -227,7 +229,7 @@ class VirtualKeyboard:
             appendrow3(Button(
                 keyframe3,
                 font=self.keyfont,
-                border=10,
+                border=7,
                 bg=self.gray,
                 activebackground=self.darkgray,
                 activeforeground="#bababa",
@@ -263,7 +265,7 @@ class VirtualKeyboard:
             appendrow4(Button(
                 keyframe4,
                 font=self.keyfont,
-                border=10,
+                border=7,
                 bg=self.gray,
                 activebackground=self.darkgray,
                 activeforeground="#bababa",
@@ -300,7 +302,7 @@ class VirtualKeyboard:
             appendrow5(Button(
                 keyframe5,
                 font=self.keyfont,
-                border=10,
+                border=7,
                 bg=self.gray,
                 activebackground=self.darkgray,
                 activeforeground="#bababa",
@@ -343,7 +345,7 @@ class VirtualKeyboard:
             appendrow6(Button(
                 keyframe6,
                 font=self.keyfont,
-                border=10,
+                border=7,
                 bg=self.gray,
                 activebackground=self.darkgray,
                 activeforeground="#bababa",
@@ -383,11 +385,11 @@ class VirtualKeyboard:
 
         # empty space
         Grid.columnconfigure(infoframe7, 0, weight=1)
-        self.tips_space = Button(infoframe7, text="Right click to hold\nSHIFT, CTRL, ALT or WIN keys", bg=self.gray, relief=FLAT, disabledforeground="white", state=DISABLED)
+        self.tips_space = Button(infoframe7, text="Enjoy the buttons :)", bg=self.gray, relief=FLAT, disabledforeground="white", font=self.bottomfont, state=DISABLED, height=1)
         self.tips_space.grid(row=0, column=0, sticky="NSEW")
 
         # copy button
-        Grid.columnconfigure(infoframe7, 2, weight=2)
+        Grid.columnconfigure(infoframe7, 2, weight=1)
         self.copy_button = Button(
             infoframe7,
             font=self.bottomfont,
@@ -397,13 +399,12 @@ class VirtualKeyboard:
             activebackground=self.darkpurple,
             activeforeground="black",
             fg="black",
-            width=1,
             relief=RAISED
         )
         self.copy_button.grid(row=0, column=2, padx=2, sticky="NSEW")
 
         # cut button
-        Grid.columnconfigure(infoframe7, 3, weight=2)
+        Grid.columnconfigure(infoframe7, 3, weight=1)
         self.cut_button = Button(
             infoframe7,
             font=self.bottomfont,
@@ -413,13 +414,12 @@ class VirtualKeyboard:
             activebackground=self.darkpurple,
             activeforeground="black",
             fg="black",
-            width=1,
             relief=RAISED
         )
         self.cut_button.grid(row=0, column=3, padx=2, sticky="NSEW")
 
         # paste button
-        Grid.columnconfigure(infoframe7, 4, weight=2)
+        Grid.columnconfigure(infoframe7, 4, weight=1)
         self.paste_button = Button(
             infoframe7,
             font=self.bottomfont,
@@ -429,13 +429,12 @@ class VirtualKeyboard:
             activebackground=self.darkpurple,
             activeforeground="black",
             fg="black",
-            width=1,
             relief=RAISED
         )
         self.paste_button.grid(row=0, column=4, padx=2, sticky="NSEW")
 
         # select all button
-        Grid.columnconfigure(infoframe7, 5, weight=3)
+        Grid.columnconfigure(infoframe7, 5, weight=1)
         self.selall_button = Button(
             infoframe7,
             font=self.bottomfont,
@@ -445,17 +444,12 @@ class VirtualKeyboard:
             activebackground=self.darkpurple,
             activeforeground="black",
             fg="black",
-            width=1,
             relief=RAISED
         )
         self.selall_button.grid(row=0, column=5, padx=2, sticky="NSEW")
 
-        # empty space
-        Grid.columnconfigure(infoframe7, 6, weight=1)
-        Button(infoframe7, bg=self.gray, text="\n", relief=FLAT, state=DISABLED).grid(row=0, column=6, sticky="NSEW")
-
         # task manager button
-        Grid.columnconfigure(infoframe7, 7, weight=4)
+        Grid.columnconfigure(infoframe7, 7, weight=1)
         self.taskmnger_button = Button(
             infoframe7,
             font=self.bottomfont,
@@ -465,39 +459,37 @@ class VirtualKeyboard:
             activebackground=self.darkblue,
             activeforeground="black",
             fg="black",
-            width=1,
             relief=RAISED
         )
         self.taskmnger_button.grid(row=0, column=7, padx=2, sticky="NSEW")
 
         # pin keyboard button
-        Grid.columnconfigure(infoframe7, 8, weight=5)
+        Grid.columnconfigure(infoframe7, 8, weight=1)
         self.pinkb_button = Button(
             infoframe7,
             font=self.bottomfont,
             border=5,
             bg=self.darkblue,
-            text="Unpin Keyboard\n📌",
+            text="Unpin Keyboard 📌",
             activebackground=self.blue,
             activeforeground="black",
             fg="black",
-            width=1,
+            width=15,
             relief=SUNKEN
             , command=self.keyboard_top)
         self.pinkb_button.grid(row=0, column=8, padx=2, sticky="NSEW")
 
         # settings button
-        Grid.columnconfigure(infoframe7, 11, weight=3)
+        Grid.columnconfigure(infoframe7, 11, weight=1)
         self.settings_button = Button(
             infoframe7,
             font=self.bottomfont,
             border=5,
             bg=self.yellow,
-            text="Keyboard\nSettings",
+            text="Keyboard Settings",
             activebackground=self.darkyellow,
             activeforeground="black",
             fg="black",
-            width=1,
             relief=RAISED,
             command=self.kb_settings
         )
@@ -508,7 +500,7 @@ class VirtualKeyboard:
         Label(infoframe7, text="Made with Love...\nand python", bg=self.gray, fg="white", font=self.neetfont).grid(row=0, column=10, sticky="NSEW")
 
         # add the frames to the main window
-        keyframe1.grid(row=0, sticky="NSEW", padx=9, pady=12)
+        keyframe1.grid(row=0, sticky="NSEW", padx=9, pady=6)
         keyframe2.grid(row=1, sticky="NSEW", padx=9)
         keyframe3.grid(row=2, sticky="NSEW", padx=9)
         keyframe4.grid(row=3, sticky="NSEW", padx=9)
@@ -771,13 +763,13 @@ class VirtualKeyboard:
     # disable the option to keep keyboard on top
     def removekbfromtop(self):
         self.master.attributes('-topmost', False)
-        self.pinkb_button.config(bg=self.blue, activebackground=self.darkblue, relief=RAISED, text="Pin Keyboard\n📌")
+        self.pinkb_button.config(bg=self.blue, activebackground=self.darkblue, relief=RAISED, text="Pin Keyboard 📌")
         self.master.update()
 
     # enable the option to keep keyboard on top
     def addkbtotop(self):
         self.master.attributes('-topmost', True)
-        self.pinkb_button.config(relief=SUNKEN, bg=self.darkblue, activebackground=self.blue, text="Unpin Keyboard\n📌")
+        self.pinkb_button.config(relief=SUNKEN, bg=self.darkblue, activebackground=self.blue, text="Unpin Keyboard 📌")
         self.master.update()
 
     # Settings window
@@ -843,12 +835,12 @@ class VirtualKeyboard:
 
     # start keyboard
     def start(self):
-        if not has_keyboard:
-            self.tips_space.config(text="Enjoy the buttons :)")
         self.master.mainloop()
 
     # add functionality to keyboard
     def engine(self):
+        self.master.title("Virtual Keyboard")
+        self.master.protocol("WM_DELETE_WINDOW", lambda: [keyboard.release('shift'), keyboard.release('ctrl'), keyboard.release('alt'), keyboard.release('win'), self.master.destroy(), end()])
         for key in self.row1keys:
             ind = self.row1keys.index(str(key))
             self.row1buttons[ind].config(command=lambda x=key: self.vpresskey(x))
@@ -897,6 +889,7 @@ class VirtualKeyboard:
                 self.row6buttons[ind].config(command=lambda: self.vupdownkey("<Button-1>", 'alt', "L"))
                 self.row6buttons[ind].bind('<Button-3>', lambda event="<Button-3>", y='alt', a="R": self.vupdownkey(event, y, a))
 
+        self.tips_space.config(text="Right click to hold\nSHIFT, CTRL, ALT or WIN keys", height=2)
         self.copy_button.config(command=lambda: self.vpresskey('ctrl+c'))
         self.cut_button.config(command=lambda: self.vpresskey('ctrl+x'))
         self.paste_button.config(command=lambda: self.vpresskey('ctrl+v'))
