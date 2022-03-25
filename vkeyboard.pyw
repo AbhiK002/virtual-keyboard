@@ -475,8 +475,8 @@ class VirtualKeyboard:
             activeforeground="black",
             fg="black",
             width=15,
-            relief=SUNKEN
-            , command=self.keyboard_top)
+            relief=SUNKEN,
+            command=self.keyboard_top)
         self.pinkb_button.grid(row=0, column=8, padx=2, sticky="NSEW")
 
         # settings button
@@ -665,7 +665,7 @@ class VirtualKeyboard:
     def vpresskey(self, x):
         self.master.unbind("<Unmap>", self.unmap_bind)
         self.master.withdraw()
-        self.master.after(80, keyboard.send((x)))
+        self.master.after(80, keyboard.send(x))
         self.master.after(10, self.master.wm_deiconify())
 
         if not self.spl_key_pressed:
