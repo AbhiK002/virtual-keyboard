@@ -118,9 +118,9 @@ class VirtualKeyboard:
         appendrow6 = self.row6buttons.append
 
         # prevents frames having inconsistent relative dimensions
-        Grid.columnconfigure(self.master, 0, weight=1)
+        self.master.columnconfigure(0, weight=1)
         for i in range(7):
-            Grid.rowconfigure(self.master, i, weight=1)
+            self.master.rowconfigure(i, weight=1)
 
         # Create fonts acc to resolution
         if self.user_scr_width < 1600:
@@ -140,12 +140,12 @@ class VirtualKeyboard:
 
         # create a frame for row1buttons
         keyframe1 = Frame(self.master, height=1)
-        Grid.rowconfigure(keyframe1, 0, weight=1)
+        keyframe1.rowconfigure(0, weight=1)
 
         # create row1buttons
         for key in self.row1keys:
             ind = self.row1keys.index(key)
-            Grid.columnconfigure(keyframe1, ind, weight=1)
+            keyframe1.columnconfigure(ind, weight=1)
             appendrow1(Button(
                 keyframe1,
                 font=self.keyfont,
@@ -172,15 +172,15 @@ class VirtualKeyboard:
 
         # create a frame for row2buttons
         keyframe2 = Frame(self.master, height=1)
-        Grid.rowconfigure(keyframe2, 0, weight=1)
+        keyframe2.rowconfigure(0, weight=1)
 
         # create row2buttons
         for key in self.row2keys:
             ind = self.row2keys.index(key)
             if ind == 13:
-                Grid.columnconfigure(keyframe2, ind, weight=2)
+                keyframe2.columnconfigure(ind, weight=2)
             else:
-                Grid.columnconfigure(keyframe2, ind, weight=1)
+                keyframe2.columnconfigure(ind, weight=1)
             appendrow2(Button(
                 keyframe2,
                 font=self.keyfont,
@@ -217,15 +217,15 @@ class VirtualKeyboard:
 
         # create a frame for row3buttons
         keyframe3 = Frame(self.master, width=1)
-        Grid.rowconfigure(keyframe3, 0, weight=1)
+        keyframe3.rowconfigure(0, weight=1)
 
         # create row3buttons
         for key in self.row3keys:
             ind = self.row3keys.index(key)
             if ind == 13:
-                Grid.columnconfigure(keyframe3, ind, weight=2)
+                keyframe3.columnconfigure(ind, weight=2)
             else:
-                Grid.columnconfigure(keyframe3, ind, weight=1)
+                keyframe3.columnconfigure(ind, weight=1)
             appendrow3(Button(
                 keyframe3,
                 font=self.keyfont,
@@ -256,12 +256,12 @@ class VirtualKeyboard:
 
         # create a frame for row4buttons
         keyframe4 = Frame(self.master, height=1)
-        Grid.rowconfigure(keyframe4, 0, weight=1)
+        keyframe4.rowconfigure(0, weight=1)
 
         # create row4buttons
         for key in self.row4keys:
             ind = self.row4keys.index(key)
-            Grid.columnconfigure(keyframe4, ind, weight=1)
+            keyframe4.columnconfigure(ind, weight=1)
             appendrow4(Button(
                 keyframe4,
                 font=self.keyfont,
@@ -290,15 +290,15 @@ class VirtualKeyboard:
 
         # create a frame for row5buttons
         keyframe5 = Frame(self.master, height=1)
-        Grid.rowconfigure(keyframe5, 0, weight=1)
+        keyframe5.rowconfigure(0, weight=1)
 
         # create row5buttons
         for key in self.row5keys:
             ind = self.row5keys.index(key)
             if ind == 0 or ind == 11:
-                Grid.columnconfigure(keyframe5, ind, weight=3)
+                keyframe5.columnconfigure(ind, weight=3)
             else:
-                Grid.columnconfigure(keyframe5, ind, weight=1)
+                keyframe5.columnconfigure(ind, weight=1)
             appendrow5(Button(
                 keyframe5,
                 font=self.keyfont,
@@ -333,15 +333,15 @@ class VirtualKeyboard:
 
         # create a frame for row6buttons
         keyframe6 = Frame(self.master, height=1)
-        Grid.rowconfigure(keyframe6, 0, weight=1)
+        keyframe6.rowconfigure(0, weight=1)
 
         # create row6buttons
         for key in self.row6keys:
             ind = self.row6keys.index(key)
             if ind == 3:
-                Grid.columnconfigure(keyframe6, ind, weight=12)
+                keyframe6.columnconfigure(ind, weight=12)
             else:
-                Grid.columnconfigure(keyframe6, ind, weight=1)
+                keyframe6.columnconfigure(ind, weight=1)
             appendrow6(Button(
                 keyframe6,
                 font=self.keyfont,
@@ -381,15 +381,15 @@ class VirtualKeyboard:
 
         # create final frame 7 for custom keys
         infoframe7 = Frame(self.master, height=1, bg=self.gray)
-        Grid.rowconfigure(infoframe7, 0, weight=1)
+        infoframe7.rowconfigure(0, weight=1)
 
         # empty space
-        Grid.columnconfigure(infoframe7, 0, weight=1)
+        infoframe7.columnconfigure(0, weight=1)
         self.tips_space = Button(infoframe7, text="Enjoy the buttons :)", bg=self.gray, relief=FLAT, disabledforeground="white", font=self.bottomfont, state=DISABLED, height=1)
         self.tips_space.grid(row=0, column=0, sticky="NSEW")
 
         # copy button
-        Grid.columnconfigure(infoframe7, 2, weight=1)
+        infoframe7.columnconfigure(2, weight=1)
         self.copy_button = Button(
             infoframe7,
             font=self.bottomfont,
@@ -404,7 +404,7 @@ class VirtualKeyboard:
         self.copy_button.grid(row=0, column=2, padx=2, sticky="NSEW")
 
         # cut button
-        Grid.columnconfigure(infoframe7, 3, weight=1)
+        infoframe7.columnconfigure(3, weight=1)
         self.cut_button = Button(
             infoframe7,
             font=self.bottomfont,
@@ -419,7 +419,7 @@ class VirtualKeyboard:
         self.cut_button.grid(row=0, column=3, padx=2, sticky="NSEW")
 
         # paste button
-        Grid.columnconfigure(infoframe7, 4, weight=1)
+        infoframe7.columnconfigure(4, weight=1)
         self.paste_button = Button(
             infoframe7,
             font=self.bottomfont,
@@ -434,7 +434,7 @@ class VirtualKeyboard:
         self.paste_button.grid(row=0, column=4, padx=2, sticky="NSEW")
 
         # select all button
-        Grid.columnconfigure(infoframe7, 5, weight=1)
+        infoframe7.columnconfigure(5, weight=1)
         self.selall_button = Button(
             infoframe7,
             font=self.bottomfont,
@@ -449,7 +449,7 @@ class VirtualKeyboard:
         self.selall_button.grid(row=0, column=5, padx=2, sticky="NSEW")
 
         # task manager button
-        Grid.columnconfigure(infoframe7, 7, weight=1)
+        infoframe7.columnconfigure(7, weight=1)
         self.taskmnger_button = Button(
             infoframe7,
             font=self.bottomfont,
@@ -464,7 +464,7 @@ class VirtualKeyboard:
         self.taskmnger_button.grid(row=0, column=7, padx=2, sticky="NSEW")
 
         # pin keyboard button
-        Grid.columnconfigure(infoframe7, 8, weight=1)
+        infoframe7.columnconfigure(8, weight=1)
         self.pinkb_button = Button(
             infoframe7,
             font=self.bottomfont,
@@ -480,7 +480,7 @@ class VirtualKeyboard:
         self.pinkb_button.grid(row=0, column=8, padx=2, sticky="NSEW")
 
         # settings button
-        Grid.columnconfigure(infoframe7, 11, weight=1)
+        infoframe7.columnconfigure(11, weight=1)
         self.settings_button = Button(
             infoframe7,
             font=self.bottomfont,
@@ -496,7 +496,7 @@ class VirtualKeyboard:
         self.settings_button.grid(row=0, column=11, padx=2, sticky="NSEW")
 
         # decor
-        Grid.columnconfigure(infoframe7, 10, weight=1)
+        infoframe7.columnconfigure(10, weight=1)
         Label(infoframe7, text="Made with Love...\nand python", bg=self.gray, fg="white", font=self.neetfont).grid(row=0, column=10, sticky="NSEW")
 
         # add the frames to the main window
