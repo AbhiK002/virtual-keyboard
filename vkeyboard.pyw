@@ -144,7 +144,7 @@ class VirtualKeyboard:
 
         # create row1buttons
         for key in self.row1keys:
-            ind = self.row1keys.index(str(key))
+            ind = self.row1keys.index(key)
             Grid.columnconfigure(keyframe1, ind, weight=1)
             appendrow1(Button(
                 keyframe1,
@@ -164,7 +164,7 @@ class VirtualKeyboard:
             elif key == "numlock":
                 self.row1buttons[ind].config(text="NumLck", width=3)
             else:
-                self.row1buttons[ind].config(text=str(key).title())
+                self.row1buttons[ind].config(text=key.title())
 
             self.row1buttons[ind].grid(row=0, column=ind, sticky="NSEW")
 
@@ -176,7 +176,7 @@ class VirtualKeyboard:
 
         # create row2buttons
         for key in self.row2keys:
-            ind = self.row2keys.index(str(key))
+            ind = self.row2keys.index(key)
             if ind == 13:
                 Grid.columnconfigure(keyframe2, ind, weight=2)
             else:
@@ -195,7 +195,7 @@ class VirtualKeyboard:
             if key == "page_up":
                 self.row2buttons[ind].config(text="Pg Up", width=2)
             elif key == "backspace":
-                self.row2buttons[ind].config(text=str(key).title(), width=4)
+                self.row2buttons[ind].config(text=key.title(), width=4)
 
             self.row2buttons[ind].grid(row=0, column=ind, sticky="NSEW")
 
@@ -221,7 +221,7 @@ class VirtualKeyboard:
 
         # create row3buttons
         for key in self.row3keys:
-            ind = self.row3keys.index(str(key))
+            ind = self.row3keys.index(key)
             if ind == 13:
                 Grid.columnconfigure(keyframe3, ind, weight=2)
             else:
@@ -248,7 +248,7 @@ class VirtualKeyboard:
             elif key == "enter":
                 self.row3buttons[ind].config(text="Enter", width=3)
             else:
-                self.row3buttons[ind].config(text=str(key).title())
+                self.row3buttons[ind].config(text=key.title())
 
             self.row3buttons[ind].grid(row=0, column=ind, sticky="NSEW")
 
@@ -260,7 +260,7 @@ class VirtualKeyboard:
 
         # create row4buttons
         for key in self.row4keys:
-            ind = self.row4keys.index(str(key))
+            ind = self.row4keys.index(key)
             Grid.columnconfigure(keyframe4, ind, weight=1)
             appendrow4(Button(
                 keyframe4,
@@ -282,7 +282,7 @@ class VirtualKeyboard:
             elif key == "capslock":
                 self.row4buttons[ind].config(text="CapsLck", width=5)
             else:
-                self.row4buttons[ind].config(text=str(key).title())
+                self.row4buttons[ind].config(text=key.title())
 
             self.row4buttons[ind].grid(row=0, column=ind, sticky="NSEW")
 
@@ -294,7 +294,7 @@ class VirtualKeyboard:
 
         # create row5buttons
         for key in self.row5keys:
-            ind = self.row5keys.index(str(key))
+            ind = self.row5keys.index(key)
             if ind == 0 or ind == 11:
                 Grid.columnconfigure(keyframe5, ind, weight=3)
             else:
@@ -325,7 +325,7 @@ class VirtualKeyboard:
             elif key == "right shift":
                 self.row5buttons[ind].config(text="Shift", width=6)
             else:
-                self.row5buttons[ind].config(text=str(key).title())
+                self.row5buttons[ind].config(text=key.title())
 
             self.row5buttons[ind].grid(row=0, column=ind, sticky="NSEW")
 
@@ -337,7 +337,7 @@ class VirtualKeyboard:
 
         # create row6buttons
         for key in self.row6keys:
-            ind = self.row6keys.index(str(key))
+            ind = self.row6keys.index(key)
             if ind == 3:
                 Grid.columnconfigure(keyframe6, ind, weight=12)
             else:
@@ -375,7 +375,7 @@ class VirtualKeyboard:
             elif key == ":)":
                 self.row6buttons[ind].config(text=key, width=4, bg=self.red, activebackground=self.darkred, command=self.donothing)
             else:
-                self.row6buttons[ind].config(text=str(key).title())
+                self.row6buttons[ind].config(text=key.title())
 
             self.row6buttons[ind].grid(row=0, column=ind, sticky="NSEW")
 
@@ -665,8 +665,7 @@ class VirtualKeyboard:
     def vpresskey(self, x):
         self.master.unbind("<Unmap>", self.unmap_bind)
         self.master.withdraw()
-        self.master.after(80, keyboard.send(str(x)))
-        # print(f"Pressed {str(x)}")
+        self.master.after(80, keyboard.send((x)))
         self.master.after(10, self.master.wm_deiconify())
 
         if not self.spl_key_pressed:
@@ -842,24 +841,24 @@ class VirtualKeyboard:
         self.master.title("Virtual Keyboard")
         self.master.protocol("WM_DELETE_WINDOW", lambda: [keyboard.release('shift'), keyboard.release('ctrl'), keyboard.release('alt'), keyboard.release('win'), self.master.destroy(), end()])
         for key in self.row1keys:
-            ind = self.row1keys.index(str(key))
+            ind = self.row1keys.index(key)
             self.row1buttons[ind].config(command=lambda x=key: self.vpresskey(x))
 
         for key in self.row2keys:
-            ind = self.row2keys.index(str(key))
+            ind = self.row2keys.index(key)
             self.row2buttons[ind].config(command=lambda x=key: self.vpresskey(x))
         self.row2buttons[11].config(command=lambda x='-': self.quest_press(x))
 
         for key in self.row3keys:
-            ind = self.row3keys.index(str(key))
+            ind = self.row3keys.index(key)
             self.row3buttons[ind].config(command=lambda x=key: self.vpresskey(x))
 
         for key in self.row4keys:
-            ind = self.row4keys.index(str(key))
+            ind = self.row4keys.index(key)
             self.row4buttons[ind].config(command=lambda x=key: self.vpresskey(x))
 
         for key in self.row5keys:
-            ind = self.row5keys.index(str(key))
+            ind = self.row5keys.index(key)
             self.row5buttons[ind].config(command=lambda x=key: self.vpresskey(x))
             if key == "/":
                 self.row5buttons[ind].config(command=lambda x='/': self.quest_press(x))
@@ -871,11 +870,13 @@ class VirtualKeyboard:
                 self.row5buttons[ind].bind('<Button-3>', lambda event="<Button-3>", y='shift', a="R": self.vupdownkey(event, y, a))
 
         for key in self.row6keys:
-            ind = self.row6keys.index(str(key))
+            ind = self.row6keys.index(key)
             self.row6buttons[ind].config(command=lambda x=key: self.vpresskey(x))
             if key == "win":
                 self.row6buttons[ind].config(command=lambda: self.vupdownkey("<Button-1>", 'win', "L"))
                 self.row6buttons[ind].bind('<Button-3>', lambda event="<Button-3>", y='win', a="R": self.vupdownkey(event, y, a))
+            elif key == ":)":
+                self.row6buttons[ind].config(command=self.donothing)
             elif key == "left ctrl":
                 self.row6buttons[ind].config(command=lambda: self.vupdownkey("<Button-1>", 'ctrl', "L"))
                 self.row6buttons[ind].bind('<Button-3>', lambda event="<Button-3>", y='ctrl', a="R": self.vupdownkey(event, y, a))
