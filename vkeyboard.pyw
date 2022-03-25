@@ -791,8 +791,8 @@ class VirtualKeyboard:
         settings_window.focus_set()
 
         # Fonts for settings window
-        stitlefont = font.Font(family="Calibri", size="20", weight="bold")
-        sfont = font.Font(family="Calibri", size="16", weight="bold")
+        stitlefont = font.Font(family="Calibri", size=20, weight="bold")
+        sfont = font.Font(family="Calibri", size=16, weight="bold")
 
         mainframe = Frame(settings_window, height=344, width=400, bg=self.gray, highlightthickness=2, highlightbackground=self.yellow)
 
