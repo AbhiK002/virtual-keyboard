@@ -27,9 +27,9 @@ except (ModuleNotFoundError, ImportError):
 
 class VirtualKeyboard:
 
-    def __init__(self):
+    def __init__(self, master):
         # Main Window
-        self.master = Tk()
+        self.master = master
 
         # prevent from crash if photo isn't found
         try:
@@ -900,7 +900,8 @@ class VirtualKeyboard:
 
 if __name__ == '__main__':
     # creates a keyboard body with no functionality
-    keyboard1 = VirtualKeyboard()
+    root = Tk()
+    keyboard1 = VirtualKeyboard(root)
 
     # if user has keyboard module, adds functionality to keyboard
     if has_keyboard:
