@@ -27,7 +27,7 @@ except (ModuleNotFoundError, ImportError):
 
 class VirtualKeyboard:
 
-    def __init__(self, master):
+    def __init__(self, master=Tk()):
         # Main Window
         self.master = master
 
@@ -900,8 +900,7 @@ class VirtualKeyboard:
 
 if __name__ == '__main__':
     # creates a keyboard body with no functionality
-    root = Tk()
-    keyboard1 = VirtualKeyboard(root)
+    keyboard1 = VirtualKeyboard()
 
     # if user has keyboard module, adds functionality to keyboard
     if has_keyboard:
