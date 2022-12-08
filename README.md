@@ -2,6 +2,8 @@
 # Virtual Keyboard 
 A GUI application made in python using tkinter
 
+### [Download Here](https://github.com/AbhiK002/virtual-keyboard/releases/latest)
+
 This is my first ever proper GUI based application project after learning tkinter recently. I made it to practice and get more used to working with tkinter.
 
 ## Usage
