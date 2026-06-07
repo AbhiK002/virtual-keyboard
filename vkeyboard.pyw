@@ -2,10 +2,20 @@ from tkinter import *
 import tkinter.font as font
 from tkinter import messagebox
 from sys import exit as end
+import sys
 from os import system
+from os import path as ospath
 
 # if user has the keyboard module installed
 has_keyboard = True
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = ospath.abspath(".")
+
+    return ospath.join(base_path, relative_path)
 
 try:
     import keyboard
@@ -33,7 +43,7 @@ class VirtualKeyboard:
 
         # prevent from crash if photo isn't found
         try:
-            vkblogo = PhotoImage(file="vkblogo.png")
+            vkblogo = PhotoImage(file=resource_path("vkblogo.png"))
             self.master.iconphoto(True, vkblogo)
         except TclError:
             # logo not found locally
